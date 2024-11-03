@@ -1,4 +1,3 @@
-// HtmlTagProps.ts
 import { TextProps, ViewProps, ImageProps, ScrollViewProps, TextInputProps, TouchableOpacityProps } from 'react-native';
 import React from 'react';
 

@@ -1,4 +1,3 @@
-// HtmlTags.ts
 import React from 'react';
 import { Text, View, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import {
