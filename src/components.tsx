@@ -15,7 +15,7 @@ import {
 } from './types/Components.types';
 
 export const div = ({ children, style, ...props }: DivProps) => (
-  <View {...props} style={[style]}>
+  <View {...props} style={[{ flex: 1 }, style]}>
     {children}
   </View>
 );

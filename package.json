@@ -1,6 +1,6 @@
 {
   "name": "jsx-to-rn",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A React Native library that brings familiar HTML tags like <div>, <p>, and <h1> to mobile, making cross-platform development intuitive and seamless.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
