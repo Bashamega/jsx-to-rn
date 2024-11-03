@@ -14,43 +14,70 @@ import {
   ListItemProps,
 } from './types/Components.types';
 
-export const div = (props: DivProps) => <View {...props}>{props.children}</View>;
-export const span = (props: SpanProps) => <Text {...props}>{props.children}</Text>;
-export const p = (props: ParagraphProps) => (
-  <Text {...props} style={[{ marginVertical: 4 }, props.style]}>
-    {props.children}
+export const div = ({ children, style, ...props }: DivProps) => (
+  <View {...props} style={[style]}>
+    {children}
+  </View>
+);
+
+export const span = ({ children, style, ...props }: SpanProps) => (
+  <Text {...props} style={[style]}>
+    {children}
   </Text>
 );
-export const h1 = (props: HeadingProps) => (
-  <Text {...props} style={[{ fontSize: 32, fontWeight: 'bold' }, props.style]}>
-    {props.children}
+
+export const p = ({ children, style, ...props }: ParagraphProps) => (
+  <Text {...props} style={[{ marginVertical: 4 }, style]}>
+    {children}
   </Text>
 );
-export const h2 = (props: HeadingProps) => (
-  <Text {...props} style={[{ fontSize: 28, fontWeight: 'bold' }, props.style]}>
-    {props.children}
+
+export const h1 = ({ children, style, ...props }: HeadingProps) => (
+  <Text {...props} style={[{ fontSize: 32, fontWeight: 'bold' }, style]}>
+    {children}
+  </Text>
+);
+
+export const h2 = ({ children, style, ...props }: HeadingProps) => (
+  <Text {...props} style={[{ fontSize: 28, fontWeight: 'bold' }, style]}>
+    {children}
   </Text>
 );
 
 export const img = (props: ImageComponentProps) => <Image {...props} />;
-export const button = (props: ButtonProps) => (
-  <TouchableOpacity {...props}>
-    <Text style={[{ textAlign: 'center', padding: 10 }, props.style as any]}>{props.children}</Text>
+
+export const button = ({ children, onPress, style, ...props }: ButtonProps) => (
+  <TouchableOpacity {...props} onPress={onPress}>
+    <Text style={[{ textAlign: 'center', padding: 10 }, style]}>
+      {children}
+    </Text>
   </TouchableOpacity>
 );
+
 export const input = (props: InputProps) => <TextInput {...props} />;
 
-export const ul = (props: ListProps) => <View {...props}>{props.children}</View>;
-export const li = (props: ListItemProps) => (
-  <Text {...props} style={[{ marginLeft: 16 }, props.style]}>
-    {props.children}
+export const ul = ({ children, style, ...props }: ListProps) => (
+  <View {...props} style={[style]}>
+    {children}
+  </View>
+);
+
+export const li = ({ children, style, ...props }: ListItemProps) => (
+  <Text {...props} style={[{ marginLeft: 16 }, style]}>
+    {children}
   </Text>
 );
 
-export const a = (props: AnchorProps) => (
-  <TouchableOpacity {...props}>
-    <Text style={[{ color: 'blue', textDecorationLine: 'underline' }, props.style]}>{props.children}</Text>
+export const a = ({ children, onPress, style, ...props }: AnchorProps) => (
+  <TouchableOpacity {...props} onPress={onPress}>
+    <Text style={[{ color: 'blue', textDecorationLine: 'underline' }, style]}>
+      {children}
+    </Text>
   </TouchableOpacity>
 );
 
-export const scroll = (props: ScrollProps) => <ScrollView {...props}>{props.children}</ScrollView>;
+export const scroll = ({ children, style, ...props }: ScrollProps) => (
+  <ScrollView {...props} style={[style]}>
+    {children}
+  </ScrollView>
+);
