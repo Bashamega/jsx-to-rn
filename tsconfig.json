@@ -3,7 +3,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop":true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+
 }
