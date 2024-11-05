@@ -1,0 +1,61 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changelog:
+    if: github.repository == 'Bashamega/jsx-to-rn'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository with all releases
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Create a temporary, uniquely named branch to push release info to
+      - name: Create temporary branch
+        run: git checkout -b "release-from-${{ github.sha }}" "${{ github.sha }}"
+
+      # Get npm version from package.json
+      - name: Get npm version
+        id: package-version
+        run: |
+          LF_VERSION=$(jq -r '.version' package.json)
+          echo "current-version=$LF_VERSION" >> "$GITHUB_OUTPUT"
+
+      # Create release info and push it upstream
+      - name: Generate Changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: "./package.json,./package-lock.json"
+          git-branch: "release-from-${{ github.sha }}"
+          skip-git-pull: true
+
+      # Create PR using GitHub CLI
+      - name: Create PR with release info
+        if: steps.changelog.outputs.skipped == 'false'
+        run: gh pr create --base main --head "release-from-${{ github.sha }}" --title 'Merge new release into main' --body 'Created by GitHub Action'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Merge PR using GitHub CLI
+      - name: Merge PR with release info
+        if: steps.changelog.outputs.skipped == 'false'
+        run: gh pr merge --admin --merge --subject 'Merge release info' --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Create a new release with the last commit
+      - name: Create release with the last commit
+        if: steps.changelog.outputs.skipped == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
