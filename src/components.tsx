@@ -19,7 +19,6 @@ export const div = ({ children, style, ...props }: DivProps) => (
     {children}
   </View>
 );
-
 export const span = ({ children, style, ...props }: SpanProps) => (
   <Text {...props} style={[style]}>
     {children}
@@ -81,3 +80,15 @@ export const scroll = ({ children, style, ...props }: ScrollProps) => (
     {children}
   </ScrollView>
 );
+// Semantic Components (Aliases)
+export const header = div;
+export const nav = div;
+export const main = div;
+export const article = div;
+export const section = div;
+export const aside = div;
+export const footer = div;
+export const summary = div;
+export const details = div;
+export const figure = div;
+export const figcaption = div;
